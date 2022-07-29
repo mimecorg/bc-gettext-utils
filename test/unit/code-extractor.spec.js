@@ -4,6 +4,8 @@ const codeExtractor = require( '../../src/code-extractor' );
 const codeLexer = require( '../../src/code-lexer' );
 const { Language } = require( '../../src/consts' );
 const razorLexer = require( '../../src/razor-lexer' );
+const vueCodeLexer = require('../../src/vue-code-lexer');
+const vueLexer = require('../../src/vue-lexer');
 
 describe( 'codeExtractor', () => {
   it( '_()', () => {
@@ -122,6 +124,25 @@ describe( 'codeExtractor', () => {
 
     expect( t2.msgid ).to.equal( 'world' );
     expect( t2.line ).to.equal( 4 );
+
+    const t3 = extractor.next();
+
+    expect( t3 ).to.be.null;
+  } );
+
+  it( 'with vueCodeLexer', () => {
+    const lexer = vueCodeLexer( '<template>\n<p>_( "HTML" );</p>\n<p>{{ _( "hello" ); }}</p>\n</template>\n<script>\n_( "world" );\n</script>', vueLexer, codeLexer );
+    const extractor = codeExtractor( lexer, false );
+
+    const t1 = extractor.next();
+
+    expect( t1.msgid ).to.equal( 'hello' );
+    expect( t1.line ).to.equal( 3 );
+
+    const t2 = extractor.next();
+
+    expect( t2.msgid ).to.equal( 'world' );
+    expect( t2.line ).to.equal( 6 );
 
     const t3 = extractor.next();
 
