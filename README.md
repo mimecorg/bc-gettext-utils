@@ -12,25 +12,30 @@ Install using npm:
 npm install bc-gettext-utils
 ```
 
-Include the library:
-
-```js
-const { extractors, mergeTranslations, normalizePlurals } = require( 'bc-gettext-utils' );
-```
-
 ## Extracting translations
 
-Use the `extractors` collection of functions to extract translatable strings from a source file, e.g.:
+Use the `extractors` collection of functions to extract translatable strings from source files, e.g.:
 
 ```js
-const translations = extractors.js( contents, file, [ options ] );
+const { translationBuilder, extractors } = require( 'bc-gettext-utils' );
+
+const builder = translationBuilder();
+
+builder.add( file, extractors.js( text, [options] ) );
+builder.add( file, extractors.vue( text, [options] ) );
+builder.add( file, extractors.cs( text, [options] ) );
+builder.add( file, extractors.cshtml( text, [options] ) );
+builder.add( file, extractors.xaml( text, [options] ) );
+
+const translations = builder.translations;
+const count = builder.count;
 ```
 
 Where:
 
- - `contents` is the source file contents as a UTF-8 string
- - `file` is the path of the file to be included in the comments
- - `options` is the optional options (see below)
+ - `file` is the path of the source file to be included in the comments
+ - `text` is the source file contents as a UTF-8 string
+ - `options` is the optional configuration object (see below)
 
 Available extractors:
 
@@ -40,7 +45,7 @@ Available extractors:
  - `extractors.cshtml` - Razor pages and MVC views
  - `extractors.xaml` - XAML files
 
-The returned object follows the format used by `gettext-parser`, e.g.:
+The object returned by `builder.translations` follows the format used by [gettext-parser](https://github.com/smhg/gettext-parser#translations), e.g.:
 
 ```json
 {
@@ -66,6 +71,8 @@ The returned object follows the format used by `gettext-parser`, e.g.:
 }
 ```
 
+The number of extracted unique messages is available as `builder.count`.
+
 ### JavaScript and C#
 
 The following functions or methods are recognized in JavaScript and C# code:
@@ -80,7 +87,7 @@ _pn( "context", "text", "plural text" );
 Additional arguments are ignored. The names of these functions can be customized by passing additional options to the extractor, for example:
 
 ```js
-const translations = extractors.js( contents, file, {
+builder.add( file, extractors.js( text, file, {
   string: '_',
   particularString: '_p',
   pluralString: '_n',
@@ -111,8 +118,8 @@ In Vue single-file components, translatable strings can be placed in the followi
 In Razor `.cshtml` files, translatable strings are extracted from:
 
  - Razor expressions: `@_( "text" )`
- - Razor code blocks: `@{ string title = _( "text" ) }`
- - control structures - conditionals, loops, etc.: `@if ( a > 0 ) { title = _( "text" ) }`
+ - Razor code blocks: `@{ string title = _( "text" ); }`
+ - control structures - conditionals, loops, etc.: `@if ( a > 0 ) { title = _( "text" ); }`
  - the `@functions` directive
 
 ### XAML
