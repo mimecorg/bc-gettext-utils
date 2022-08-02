@@ -1,4 +1,4 @@
-const expect = require( 'chai' ).expect;
+const { expect } = require( 'chai' );
 
 const vueLexer = require( '../../src/vue-lexer' );
 const { Token } = require( '../../src/consts' );

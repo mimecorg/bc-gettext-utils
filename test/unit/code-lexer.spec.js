@@ -1,4 +1,4 @@
-const expect = require( 'chai' ).expect;
+const { expect } = require( 'chai' );
 
 const codeLexer = require( '../../src/code-lexer' );
 const { Token, Language } = require( '../../src/consts' );

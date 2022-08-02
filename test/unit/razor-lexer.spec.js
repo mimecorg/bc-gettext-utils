@@ -1,4 +1,4 @@
-const expect = require( 'chai' ).expect;
+const { expect } = require( 'chai' );
 
 const razorLexer = require( '../../src/razor-lexer' );
 const codeLexer = require( '../../src/code-lexer' );

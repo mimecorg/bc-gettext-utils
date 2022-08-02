@@ -1,4 +1,4 @@
-const expect = require( 'chai' ).expect;
+const { expect } = require( 'chai' );
 
 const xamlExtractor = require( '../../src/xaml-extractor' );
 const xamlLexer = require( '../../src/xaml-lexer' );
