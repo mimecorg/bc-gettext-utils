@@ -4,6 +4,8 @@ const codeLexer = require( './code-lexer' );
 const razorLexer = require( './razor-lexer' );
 const vueCodeLexer = require( './vue-code-lexer' );
 const vueLexer = require( './vue-lexer' );
+const xamlExtractor = require( './xaml-extractor' );
+const xamlLexer = require( './xaml-lexer' );
 const { Language } = require( './consts' );
 
 const extractors = {
@@ -19,6 +21,9 @@ const extractors = {
   cshtml( text, options = {} ) {
    return codeExtractor( razorLexer( text, codeLexer ), false, options );
   },
+  xaml( text, options = {} ) {
+   return xamlExtractor( xamlLexer( text ), options );
+  }
 };
 
 module.exports = { translationBuilder, extractors };

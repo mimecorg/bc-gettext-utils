@@ -12,6 +12,8 @@ const Token = {
   Directive: 'Directive',
   CodeStart: 'CodeStart',
   CodeEnd: 'CodeEnd',
+  ExtensionStart: 'ExtensionStart',
+  ExtensionEnd: 'ExtensionEnd',
 };
 
 const Language = {

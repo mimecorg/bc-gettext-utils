@@ -124,7 +124,32 @@ In Razor `.cshtml` files, translatable strings are extracted from:
 
 ### XAML
 
-TODO
+In XAML files, by default, translatable strings are extracted from `i18n:Translate`, `i18n:Format` and `i18n:MultiFormat` markup extensions, for example:
+
+ - `<Label Content="{i18n:Translate text}"/>`
+ - `<Label Content="{i18n:Translate "hello, world", Context=context}"/>`
+ - `<Label Content="{Binding Count, Converter={i18n:Format 'a dog', PluralText='{0} dogs'}}"/>`
+
+The element syntax is also supported:
+
+```xml
+<Label>
+    <Label.Content>
+        <i18n:Translate Context="context">another example</i18n:Translate>
+    </Label.Content>
+</Label>
+```
+
+The names of extensions and their attributes can be customized by passing additional options to the extractor, for example:
+
+```js
+builder.add( file, extractors.xaml( text, file, {
+  extensions: [ 'i18n:Translate', 'i8n:Format', 'i8n:MultiFormat' ],
+  textAttribute: 'Text',
+  pluralTextAttribute: 'PluralText',
+  ContextAttribute: 'Context',
+} );
+```
 
 ## Merging translations
 
