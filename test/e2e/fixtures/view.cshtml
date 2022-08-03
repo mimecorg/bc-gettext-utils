@@ -1,0 +1,10 @@
+@model PageViewModel
+@{
+    ViewData[ "Title" ] = _( "Home Page" );
+}
+
+<h1>@_( "Welcome" )</h1>
+
+@if ( Model.Messages > 0 ) {
+  <p>@_n( "You have one new message.", "You have {0} new messages.", Model.Messages, Model.Messages )</p>
+}

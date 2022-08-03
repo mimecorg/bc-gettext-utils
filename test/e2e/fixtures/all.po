@@ -1,0 +1,95 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: bc-gettext-utils\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && "
+"(n%100<12 || n%100>14) ? 1 : 2);\n"
+
+#: component.vue:4
+msgctxt "tooltip"
+msgid "this is a link"
+msgstr ""
+
+#: component.vue:4
+msgid "click here"
+msgstr ""
+
+#: script.js:2
+msgid "Hello, world!"
+msgstr ""
+
+#: script.js:4 component.vue:17
+msgid "There is one warning."
+msgid_plural "There are {0} warnings."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: script.js:6
+msgctxt "database"
+msgid "table"
+msgstr ""
+
+#: script.js:8
+msgctxt "kitchen"
+msgid "table"
+msgstr ""
+
+#: script.js:10
+msgctxt "database"
+msgid "a table"
+msgid_plural "{0} tables"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: testclass.cs:7
+msgid "Welcome, {0}!"
+msgstr ""
+
+#: testclass.cs:8
+msgid "You are {0} year old."
+msgid_plural "You are {0} years old."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: testclass.cs:13
+msgctxt "fruits"
+msgid "I like apples."
+msgstr ""
+
+#: testclass.cs:14
+msgctxt "fruits"
+msgid "I have one apple."
+msgid_plural "I have {0} apples."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: view.cshtml:3
+msgid "Home Page"
+msgstr ""
+
+#: view.cshtml:6
+msgid "Welcome"
+msgstr ""
+
+#: view.cshtml:9 window.xaml:9
+msgid "You have one new message."
+msgid_plural "You have {0} new messages."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: window.xaml:6
+msgid "Main Window"
+msgstr ""
+
+#: window.xaml:14
+msgctxt "status"
+msgid "Your {0} is {1}."
+msgstr ""

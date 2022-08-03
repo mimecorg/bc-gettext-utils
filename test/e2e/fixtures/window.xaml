@@ -1,0 +1,27 @@
+<Window
+    x:Class="MyApp.Window"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i18n="clr-namespace:MyApp.I18n"
+    Title="{i18n:Translate 'Main Window'}"
+    >
+    <StackPanel>
+        <Label Content="{Binding Messages, Converter={i18n:Format 'You have one new message.', PluralText='You have {0} new messages.'}}"/>
+        <Label>
+            <Label.Content>
+                <MultiBinding>
+                    <MultiBinding.Converter>
+                      <i18n:MultiFormat>
+                        <i18n:MultiFormat.Context>status</i18n:MultiFormat.Context>
+                        Your {0} is {1}.
+                      </i18n:MultiFormat>
+                    </MultiBinding.Converter>
+                    <MultiBinding.Bindings>
+                        <Binding Path="Name"/>
+                        <Binding Path="Status"/>
+                    </MultiBinding.Bindings>
+                </MultiBinding>
+            </Label.Conent>
+        </Label>
+    </StackPanel>
+</Window>

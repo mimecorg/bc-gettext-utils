@@ -1,0 +1,98 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: bc-gettext-utils\n"
+"Last-Translator: Michał Męciński\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && "
+"(n%100<12 || n%100>14) ? 1 : 2);\n"
+
+#: component.vue:4
+msgctxt "tooltip"
+msgid "this is a link"
+msgstr "to jest odnośnik"
+
+#: component.vue:4
+msgid "click here"
+msgstr "kliknij tutaj"
+
+# check this later
+#: script.js:2
+#, fuzzy
+msgid "Hello, world!"
+msgstr "Witaj, świecie!"
+
+#: script.js:4 component.vue:17
+msgid "There is one warning."
+msgid_plural "There are {0} warnings."
+msgstr[0] "Jest jedno ostrzeżenie."
+msgstr[1] "Są {0} ostrzeżenia."
+msgstr[2] "Jest {0} ostrzeżeń."
+
+#: script.js:6
+msgctxt "database"
+msgid "table"
+msgstr "tabela"
+
+#: script.js:8
+msgctxt "kitchen"
+msgid "table"
+msgstr "stół"
+
+#: script.js:10
+msgctxt "database"
+msgid "a table"
+msgid_plural "{0} tables"
+msgstr[0] "tabela"
+msgstr[1] "{0} tabele"
+msgstr[2] "{0} tabel"
+
+#: testclass.cs:7
+msgid "Welcome, {0}!"
+msgstr "Witaj, {0}!"
+
+#: testclass.cs:8
+msgid "You are {0} year old."
+msgid_plural "You are {0} years old."
+msgstr[0] "Masz {0} rok."
+msgstr[1] "Masz {0} lata."
+msgstr[2] "Masz {0} lat."
+
+#: testclass.cs:13
+msgctxt "fruits"
+msgid "I like bananas."
+msgstr "Lubię banany."
+
+#: testclass.cs:14
+msgctxt "fruits"
+msgid "I have one apple."
+msgid_plural "I have {0} apples."
+msgstr[0] "Mam jedno jabłko."
+msgstr[1] "Mam {0} jabłka."
+msgstr[2] "Mam {0} jabłek."
+
+#: view.cshtml:3
+msgid "Home Page"
+msgstr "Strona główna"
+
+#: view.cshtml:3
+msgid "Welcome"
+msgstr "Witaj"
+
+#: view.cshtml:9
+msgid "You have one new message."
+msgid_plural "You have {0} new messages."
+msgstr[0] "Masz jedną nową wiadomość."
+msgstr[1] "Masz {0} nowe wiadomości."
+msgstr[2] "Masz {0} nowych wiadomość."
+
+#: window.xaml:6
+msgid "Main Window"
+msgstr "Okno główne"
+
+#: window.xaml:14
+msgctxt "status"
+msgid "Your {0} is {1}."
+msgstr "Twój {0} jest {1}."

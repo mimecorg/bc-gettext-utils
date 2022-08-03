@@ -2,7 +2,7 @@ const { expect } = require( 'chai' );
 
 const translationBuilder = require( '../../src/translation-builder' );
 
-const stubExtractor = require( './stub-extractor' );
+const stubExtractor = require( '../helpers/stub-extractor' );
 
 describe( 'translationBuilder', () => {
   it( 'add simple message', () => {

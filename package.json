@@ -7,8 +7,10 @@
     "src"
   ],
   "scripts": {
-    "test": "mocha test/unit/**/*.spec.js",
-    "test:watch": "mocha --watch test/unit/**/*.spec.js"
+    "test": "mocha test/setup.js test/unit/*.spec.js test/e2e/*.spec.js",
+    "test:unit": "mocha test/setup.js test/unit/*.spec.js",
+    "test:watch": "mocha --watch test/setup.js test/unit/*.spec.js",
+    "test:e2e": "mocha test/setup.js test/e2e/*.spec.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
   "homepage": "https://github.com/mimecorg/bc-gettext-utils",
   "devDependencies": {
     "chai": "^4.3.6",
+    "gettext-parser": "^5.1.2",
     "mocha": "^10.0.0"
   }
 }
