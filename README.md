@@ -12,7 +12,7 @@ Install using npm:
 npm install bc-gettext-utils
 ```
 
-## Extracting translations
+## Extract translations
 
 Use the `extractors` collection of functions to extract translatable strings from source files, e.g.:
 
@@ -92,7 +92,7 @@ builder.add( file, extractors.js( text, file, {
   particularString: '_p',
   pluralString: '_n',
   particularPluralString: '_pn',
-} );
+} ) );
 ```
 
 Note that string literals must be used for the extraction to work. In JavaScript, `'single quoted'` and `"double quoted"` strings are supported. In C#, `"regular"` and `@"verbatim"` string literals can be used.
@@ -148,14 +148,37 @@ builder.add( file, extractors.xaml( text, file, {
   textAttribute: 'Text',
   pluralTextAttribute: 'PluralText',
   ContextAttribute: 'Context',
-} );
+} ) );
 ```
 
-## Merging translations
+## Merge translations
 
-TODO
+The following function can be used to merge existing, already translated messages, with newly extracted translations:
 
-## Normalizing plurals
+```js
+const { mergeTranslations } = require( 'bc-gettext-utils' );
 
-TODO
+const { translations, added, updated, deleted } = mergeTranslations( existingTranslations, newTranslations );
+```
 
+The `existingTranslations`, `newTranslations` and the returned `translations` all follow the format used by [gettext-parser](https://github.com/smhg/gettext-parser#translations).
+
+In addition to the merged translations, this function returns the following information:
+
+ - `added` the number of new translations which were not included in existing translations and have been added
+ - `update` the number of translations which existed before, but the reference or plural string has been updated
+ - `deleted` the number of existing translations which were not included in new translations and have been removed
+
+The existing translations, translator comments and flags are preserved.
+
+## Normalize plurals
+
+The following function can be used to normalize plurals in merged translations:
+
+```js
+const { normalizePlurals } = require( 'bc-gettext-utils' );
+
+const normalizedTranslations = normalizePlurals( translations, 2 );
+```
+
+It ensures that the plural messages contain the specified number of translated strings, and singular messages contain exactly one translated string.

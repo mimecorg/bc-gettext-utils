@@ -6,6 +6,8 @@ const vueCodeLexer = require( './vue-code-lexer' );
 const vueLexer = require( './vue-lexer' );
 const xamlExtractor = require( './xaml-extractor' );
 const xamlLexer = require( './xaml-lexer' );
+const mergeTranslations = require( './merge-translations' );
+const normalizePlurals = require( './normalize-plurals' );
 const { Language } = require( './consts' );
 
 const extractors = {
@@ -26,4 +28,4 @@ const extractors = {
   }
 };
 
-module.exports = { translationBuilder, extractors };
+module.exports = { translationBuilder, extractors, mergeTranslations, normalizePlurals };
