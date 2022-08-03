@@ -182,3 +182,15 @@ const normalizedTranslations = normalizePlurals( translations, 2 );
 ```
 
 It ensures that the plural messages contain the specified number of translated strings, and singular messages contain exactly one translated string.
+
+## Sort translations
+
+Use the `compareReference` function to sort translations by file path and line number. This can be used when creating a `.po` file using [gettext-parser](https://github.com/smhg/gettext-parser#compile-po-from-a-translation-object):
+
+```js
+const { compareReference } = require( 'bc-gettext-utils' );
+const gettextParser = require( 'gettext-parser' );
+
+const data = { headers, translations };
+const output = gettextParser.po.compile( data, { sort: compareReference } );
+```
