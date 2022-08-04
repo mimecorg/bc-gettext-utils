@@ -12,7 +12,8 @@ function translationBuilder() {
 
       const { line, msgctxt = '', msgid, msgid_plural = null } = translation;
 
-      addTranslation( file, line, msgctxt, msgid, msgid_plural );
+      if ( msgid != '' )
+        addTranslation( file, line, msgctxt, msgid, msgid_plural );
     }
   }
 

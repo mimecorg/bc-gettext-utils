@@ -131,4 +131,12 @@ describe( 'translationBuilder', () => {
     expect( msg2.msgid ).to.equal( 'table' );
     expect( msg2.comments.reference ).to.equal( 'file1.js:34' );
   } );
+
+  it( 'ignore empty messages', () => {
+    const builder = translationBuilder();
+
+    builder.add( 'file1.js', stubExtractor( [ { line: 12, msgid: '', msgctxt: '' }, { line: 34, msgid: '', msgctxt: 'context' } ] ) );
+
+    expect( builder.count ).to.equal( 0 );
+  } );
 } );
