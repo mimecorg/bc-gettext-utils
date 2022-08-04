@@ -23,7 +23,7 @@ function compareReference( left, right ) {
     return -1;
 
   if ( left.msgid > right.msgid )
-    return -1;
+    return 1;
 
   return 0;
 }
