@@ -8,23 +8,31 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && "
 "(n%100<12 || n%100>14) ? 1 : 2);\n"
 
-#: testclass.cs:7
+#: testclass.cs:5
+msgid "Invalid age."
+msgstr ""
+
+#: testclass.cs:6
+msgid "Age"
+msgstr ""
+
+#: testclass.cs:11
 msgid "Welcome, {0}!"
 msgstr ""
 
-#: testclass.cs:8
+#: testclass.cs:12
 msgid "You are {0} year old."
 msgid_plural "You are {0} years old."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: testclass.cs:13
+#: testclass.cs:17
 msgctxt "fruits"
 msgid "I like apples."
 msgstr ""
 
-#: testclass.cs:14
+#: testclass.cs:18
 msgctxt "fruits"
 msgid "I have one apple."
 msgid_plural "I have {0} apples."

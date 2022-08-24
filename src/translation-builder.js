@@ -10,10 +10,19 @@ function translationBuilder() {
       if ( translation == null )
         break;
 
-      const { line, msgctxt = '', msgid, msgid_plural = null } = translation;
+      if ( Array.isArray( translation ) ) {
+        for ( const item of translation ) {
+          const { line, msgctxt = '', msgid, msgid_plural = null } = item;
 
-      if ( msgid != '' )
-        addTranslation( file, line, msgctxt, msgid, msgid_plural );
+          if ( msgid != '' )
+            addTranslation( file, line, msgctxt, msgid, msgid_plural );
+        }
+      } else {
+        const { line, msgctxt = '', msgid, msgid_plural = null } = translation;
+
+        if ( msgid != '' )
+          addTranslation( file, line, msgctxt, msgid, msgid_plural );
+      }
     }
   }
 

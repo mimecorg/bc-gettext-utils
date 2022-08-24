@@ -104,6 +104,23 @@ _( "this is a long text\n"
  + "and this is another line" );
 ```
 
+In C#, translatable strings are also extracted from the `Display` attribute and the `ErrorMessage` property of validation attributes, for example:
+
+```cs
+[Required( ErrorMessage = "This field is required." )]
+[Display( Name = "First Name" )]
+public string FirstName { get; set; }
+```
+
+The names of the attribute and property can be customized by passing additional options to the extractor, for example:
+
+```js
+builder.add( file, extractors.cs( text, file, {
+  displayAttribute: 'Display',
+  errorMessageProperty = 'ErrorMessage',
+} ) );
+```
+
 ### Vue
 
 In Vue single-file components, translatable strings can be placed in the following locations:

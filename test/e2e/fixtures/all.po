@@ -9,12 +9,12 @@ msgstr ""
 "(n%100<12 || n%100>14) ? 1 : 2);\n"
 
 #: component.vue:4
-msgctxt "tooltip"
-msgid "this is a link"
+msgid "click here"
 msgstr ""
 
 #: component.vue:4
-msgid "click here"
+msgctxt "tooltip"
+msgid "this is a link"
 msgstr ""
 
 #: script.js:2
@@ -46,23 +46,31 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: testclass.cs:7
+#: testclass.cs:5
+msgid "Invalid age."
+msgstr ""
+
+#: testclass.cs:6
+msgid "Age"
+msgstr ""
+
+#: testclass.cs:11
 msgid "Welcome, {0}!"
 msgstr ""
 
-#: testclass.cs:8
+#: testclass.cs:12
 msgid "You are {0} year old."
 msgid_plural "You are {0} years old."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: testclass.cs:13
+#: testclass.cs:17
 msgctxt "fruits"
 msgid "I like apples."
 msgstr ""
 
-#: testclass.cs:14
+#: testclass.cs:18
 msgctxt "fruits"
 msgid "I have one apple."
 msgid_plural "I have {0} apples."

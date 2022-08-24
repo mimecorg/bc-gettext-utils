@@ -13,16 +13,16 @@ const { Language } = require( './consts' );
 
 const extractors = {
   js( text, options = {} ) {
-    return codeExtractor( codeLexer( text, Language.JavaScript ), true, options );
+    return codeExtractor( codeLexer( text, Language.JavaScript ), {}, options );
   },
   cs( text, options = {} ) {
-   return codeExtractor( codeLexer( text, Language.CSharp ), true, options );
+   return codeExtractor( codeLexer( text, Language.CSharp ), { extractAttributes: true }, options );
   },
   vue( text, options = {} ) {
-   return codeExtractor( vueCodeLexer( text, vueLexer, codeLexer ), false, options );
+   return codeExtractor( vueCodeLexer( text, vueLexer, codeLexer ), { insideCode: false }, options );
   },
   cshtml( text, options = {} ) {
-   return codeExtractor( razorLexer( text, codeLexer ), false, options );
+   return codeExtractor( razorLexer( text, codeLexer ), { insideCode: false, extractAttributes: true }, options );
   },
   xaml( text, options = {} ) {
    return xamlExtractor( xamlLexer( text ), options );

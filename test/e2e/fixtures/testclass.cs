@@ -2,6 +2,10 @@ using System;
 
 public class TestClass
 {
+    [Range( 1, 100, ErrorMessage = "Invalid age." ) ]
+    [Display( Name = "Age" )]
+    public int Age;
+
     public void PrintGreeting( string name, int age )
     {
         Console.WriteLine( _( "Welcome, {0}!", name ) );

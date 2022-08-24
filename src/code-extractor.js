@@ -1,11 +1,13 @@
 const { Token } = require("./consts");
 
-function codeExtractor( lexer, insideCode = true, options = {} ) {
+function codeExtractor( lexer, { insideCode = true, extractAttributes = false } = {}, options = {} ) {
   const {
     string = '_',
     particularString = '_p',
     pluralString = '_n',
     particularPluralString = '_pn',
+    displayAttribute = 'Display',
+    errorMessageProperty = 'ErrorMessage',
   } = options;
 
   function next() {
@@ -46,6 +48,20 @@ function codeExtractor( lexer, insideCode = true, options = {} ) {
             break;
         }
       }
+
+      if ( insideCode && extractAttributes && token.token == Token.Operator && token.value == '[' ) {
+        const t1 = lexer.peek();
+        const t2 = lexer.peek( 1 );
+
+        if ( t1.token == Token.Identifier && t2.token == Token.Operator && t2.value == '(' ) {
+          lexer.skip( 2 );
+          const properties = extractAttributeProperties();
+          if ( t1.value == displayAttribute )
+            return Object.values( properties );
+          else if ( properties[ errorMessageProperty ] != null )
+            return properties[ errorMessageProperty ];
+        }
+      }
     }
   }
 
@@ -84,6 +100,29 @@ function codeExtractor( lexer, insideCode = true, options = {} ) {
     }
 
     return args;
+  }
+
+  function extractAttributeProperties() {
+    const properties = {};
+
+    while ( true ) {
+      const token = lexer.next();
+
+      if ( token.token == Token.Operator && token.value == ')' || token.token == Token.EOF )
+        break;
+
+      if ( token.token == Token.Identifier ) {
+        const t1 = lexer.peek();
+        const t2 = lexer.peek( 1 );
+
+        if ( t1.token == Token.Operator && t1.value == '=' && t2.token == Token.String ) {
+          lexer.skip( 2 );
+          properties[ token.value ] = { line: t1.line, msgid: t2.value };
+        }
+      }
+    }
+
+    return properties;
   }
 
   return {

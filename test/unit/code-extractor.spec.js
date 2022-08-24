@@ -83,6 +83,27 @@ describe( 'codeExtractor', () => {
     expect( result.msgid ).to.equal( 'hello,\nworld!' );
   } );
 
+  it( 'C# display attribute', () => {
+    const lexer = codeLexer( '[Display( Name = "Display Name", ShortName = "Name" )]', Language.CSharp );
+    const extractor = codeExtractor( lexer, { extractAttributes: true } );
+
+    const result = extractor.next();
+
+    expect( result ).to.be.an( 'array' ).of.length( 2 );
+
+    expect( result[ 0 ].msgid ).to.equal( 'Display Name' );
+    expect( result[ 1 ].msgid ).to.equal( 'Name' );
+  } );
+
+  it( 'C# error message in attribute', () => {
+    const lexer = codeLexer( '[StringLength( 100, ErrorMessage = "Too long" )]', Language.CSharp );
+    const extractor = codeExtractor( lexer, { extractAttributes: true } );
+
+    const result = extractor.next();
+
+    expect( result.msgid ).to.equal( 'Too long' );
+  } );
+
   it( 'inside a function', () => {
     const lexer = codeLexer( 'function test( a ) { if ( a > 0 ) return _( "hello" ); }', Language.JavaScript );
     const extractor = codeExtractor( lexer );
@@ -113,7 +134,7 @@ describe( 'codeExtractor', () => {
 
   it( 'with razorLexer', () => {
     const lexer = razorLexer( '_( "HTML" );\n@{\n_( "hello" );\n<p>@_( "world" )</p>\n}\n_( "more HTML" );', codeLexer );
-    const extractor = codeExtractor( lexer, false );
+    const extractor = codeExtractor( lexer, { insideCode: false } );
 
     const t1 = extractor.next();
 
@@ -132,7 +153,7 @@ describe( 'codeExtractor', () => {
 
   it( 'with vueCodeLexer', () => {
     const lexer = vueCodeLexer( '<template>\n<p>_( "HTML" );</p>\n<p>{{ _( "hello" ); }}</p>\n</template>\n<script>\n_( "world" );\n</script>', vueLexer, codeLexer );
-    const extractor = codeExtractor( lexer, false );
+    const extractor = codeExtractor( lexer, { insideCode: false } );
 
     const t1 = extractor.next();
 
@@ -152,7 +173,7 @@ describe( 'codeExtractor', () => {
   it( 'with custom options', () => {
     const lexer = codeLexer( 'Text( "hello" );\nPlural( "world", "worlds" );\nContext( "ctx", "test" );PluralContext( "ctx2", "a dog", "{0} dogs" )', Language.JavaScript );
 
-    const extractor = codeExtractor( lexer, true, {
+    const extractor = codeExtractor( lexer, {}, {
       string: 'Text',
       particularString: 'Context',
       pluralString: 'Plural',
