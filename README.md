@@ -117,7 +117,7 @@ The names of the attribute and property can be customized by passing additional 
 ```js
 builder.add( file, extractors.cs( text, file, {
   displayAttribute: 'Display',
-  errorMessageProperty = 'ErrorMessage',
+  errorMessageProperty: 'ErrorMessage',
 } ) );
 ```
 
@@ -164,7 +164,7 @@ builder.add( file, extractors.xaml( text, file, {
   extensions: [ 'i18n:Translate', 'i8n:Format', 'i8n:MultiFormat' ],
   textAttribute: 'Text',
   pluralTextAttribute: 'PluralText',
-  ContextAttribute: 'Context',
+  contextAttribute: 'Context',
 } ) );
 ```
 
