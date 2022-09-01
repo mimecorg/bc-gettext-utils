@@ -75,7 +75,7 @@ function vueLexer( text ) {
   }
 
   function getRawTextToken() {
-    const closingTagRegExp = new RegExp( '<\/' + lastOpeningTag + '\\s*>', 'i' );
+    const closingTagRegExp = new RegExp( '<\/' + lastOpeningTag + '\\s*>', 'gi' );
     closingTagRegExp.lastIndex = pos;
 
     const closingTag = closingTagRegExp.exec( text );

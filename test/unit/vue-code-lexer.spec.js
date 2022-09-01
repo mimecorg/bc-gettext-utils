@@ -107,4 +107,37 @@ describe( 'vueCodeLexer', () => {
     const t10 = lexer.next();
     expect( t10.token ).to.equal( Token.EOF );
   } );
+
+  it( 'multiple script blocks', () => {
+    const lexer = vueCodeLexer( '<script setup>\nconst a = 1;\n</script>\n<script>\nF();</script>', vueLexer, codeLexer );
+
+    const t1 = lexer.next();
+    expect( t1.token ).to.equal( Token.CodeStart );
+
+    const t2 = lexer.next();
+    expect( t2.token ).to.equal( Token.Identifier );
+    expect( t2.value ).to.equal( 'const' );
+    expect( t2.line ).to.equal( 2 );
+
+    lexer.skip( 4 );
+
+    const t3 = lexer.next();
+    expect( t3.token ).to.equal( Token.CodeEnd );
+
+    const t4 = lexer.next();
+    expect( t4.token ).to.equal( Token.CodeStart );
+
+    const t5 = lexer.next();
+    expect( t5.token ).to.equal( Token.Identifier );
+    expect( t5.value ).to.equal( 'F' );
+    expect( t5.line ).to.equal( 5 );
+
+    lexer.skip( 3 );
+
+    const t6 = lexer.next();
+    expect( t6.token ).to.equal( Token.CodeEnd );
+
+    const t7 = lexer.next();
+    expect( t7.token ).to.equal( Token.EOF );
+  } );
 } );
