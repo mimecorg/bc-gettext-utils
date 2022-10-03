@@ -1,6 +1,6 @@
 {
   "name": "bc-gettext-utils",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Bulletcode gettext utilities",
   "main": "src/index.js",
   "files": [
