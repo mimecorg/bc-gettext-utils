@@ -105,13 +105,25 @@ function codeExtractor( lexer, { insideCode = true, extractAttributes = false } 
   function extractAttributeProperties() {
     const properties = {};
 
+    let parentheses = 0;
+
     while ( true ) {
       const token = lexer.next();
 
-      if ( token.token == Token.Operator && token.value == ')' || token.token == Token.EOF )
+      if ( token.token == Token.EOF )
         break;
 
-      if ( token.token == Token.Identifier ) {
+      if ( token.token == Token.Operator && token.value == '(' )
+        parentheses++;
+
+      if ( token.token == Token.Operator && token.value == ')' ) {
+        if ( parentheses == 0 )
+          break;
+        else
+          parentheses--;
+      }
+
+      if ( token.token == Token.Identifier && parentheses == 0 ) {
         const t1 = lexer.peek();
         const t2 = lexer.peek( 1 );
 

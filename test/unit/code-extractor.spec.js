@@ -104,6 +104,15 @@ describe( 'codeExtractor', () => {
     expect( result.msgid ).to.equal( 'Too long' );
   } );
 
+  it( 'C# parentheses in attribute', () => {
+    const lexer = codeLexer( '[Compare( nameof( Other ), ErrorMessage = "Must equal" )]', Language.CSharp );
+    const extractor = codeExtractor( lexer, { extractAttributes: true } );
+
+    const result = extractor.next();
+
+    expect( result.msgid ).to.equal( 'Must equal' );
+  } );
+
   it( 'inside a function', () => {
     const lexer = codeLexer( 'function test( a ) { if ( a > 0 ) return _( "hello" ); }', Language.JavaScript );
     const extractor = codeExtractor( lexer );
