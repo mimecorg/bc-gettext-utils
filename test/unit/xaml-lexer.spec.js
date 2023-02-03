@@ -92,12 +92,6 @@ describe( 'xamlLexer', () => {
   } );
 
   describe( 'simple extensions', () => {
-    // <Label Content="{Binding}" />
-    // <Label Content="{Binding Name}" />
-    // <Label Content="{Binding Path=Name}" />
-    // <Label Content="{i18n:Translate Hello, world!}" />
-    // <Label Content="{i18n:Translate 'Hello, world!'}" />
-
     it( 'without parameters', () => {
       const lexer = xamlLexer( '<Label Content="{Binding}" />' );
 
@@ -376,6 +370,25 @@ describe( 'xamlLexer', () => {
 
       const t11 = lexer.next();
       expect( t11.token ).to.equal( Token.TagEnd );
+    } );
+
+    describe( 'with escaped braces', () => {
+      const data = [
+        { title: 'in attribute', text: '<i18n:Format Text="{}{0} years"/>', skip: 3, value: '{0} years' },
+        { title: 'in extension', text: '<Label Content="{Binding Name, Converter={i18n:Format \'{}{0} pixels\'/>', skip: 12, value: '{0} pixels' },
+      ];
+
+      for ( const { title, text, skip, value } of data ) {
+        it( title, () => {
+          const lexer = xamlLexer( text);
+
+          lexer.skip( skip );
+
+          const t1 = lexer.next();
+          expect( t1.token ).to.equal( Token.String );
+          expect( t1.value ).to.equal( value );
+        } );
+      }
     } );
   } );
 } );

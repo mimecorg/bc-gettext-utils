@@ -97,7 +97,7 @@ function xamlLexer( text ) {
           return { token: Token.ExtensionStart, value: extension[ 1 ], line };
         } else {
           pos = singleQuoteStringRegExp.lastIndex;
-          return { token: Token.String, delimiter: "'", value: string[ 0 ].slice( 1, -1 ), line };
+          return { token: Token.String, delimiter: "'", value: unquoteString( string[ 0 ] ), line };
         }
       }
     }
@@ -114,7 +114,7 @@ function xamlLexer( text ) {
           return { token: Token.ExtensionStart, value: extension[ 1 ], line };
         } else {
           pos = doubleQuoteStringRegExp.lastIndex;
-          return { token: Token.String, delimiter: '"', value: string[ 0 ].slice( 1, -1 ), line };
+          return { token: Token.String, delimiter: '"', value: unquoteString( string[ 0 ] ), line };
         }
       }
     }
@@ -165,7 +165,7 @@ function xamlLexer( text ) {
           return { token: Token.ExtensionStart, value: extension[ 1 ], line };
         } else {
           pos = singleQuoteStringRegExp.lastIndex;
-          return { token: Token.String, delimiter: "'", value: string[ 0 ].slice( 1, -1 ), line };
+          return { token: Token.String, delimiter: "'", value: unquoteString( string[ 0 ] ), line };
         }
       }
     }
@@ -189,7 +189,7 @@ function xamlLexer( text ) {
           return { token: Token.ExtensionStart, value: extension[ 1 ], line };
         } else {
           pos = doubleQuoteStringRegExp.lastIndex;
-          return { token: Token.String, delimiter: '"', value: string[ 0 ].slice( 1, -1 ), line };
+          return { token: Token.String, delimiter: '"', value: unquoteString( string[ 0 ] ), line };
         }
       }
     }
@@ -203,6 +203,13 @@ function xamlLexer( text ) {
       return { token: Token.String, value: string[ 0 ], delimiter: '', line };
 
     return { token: Token.Operator, value: text[ pos++ ], line };
+  }
+
+  function unquoteString( value ) {
+    value = value.slice( 1, -1 );
+    if ( value.length >= 2 && value[ 0 ] == '{' && value[ 1 ] == '}' )
+      value = value.slice( 2 );
+    return value;
   }
 
   function exec( regExp ) {
