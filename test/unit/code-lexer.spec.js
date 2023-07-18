@@ -140,6 +140,15 @@ describe( 'codeLexer', () => {
       expect( result.token ).to.equal( Token.RegExp );
       expect( result.value ).to.equal( '/2/i' );
     } );
+
+    it( 'JSX close tag', () => {
+      const lexer = codeLexer( '</p>', Language.JavaScript );
+
+      const result = lexer.next();
+
+      expect( result.token ).to.equal( Token.Operator );
+      expect( result.value ).to.equal( '</' );
+    } );
   } );
 
   describe( 'skip whitespace', () => {

@@ -22,7 +22,7 @@ function codeLexer( text, language, razorLexer = null ) {
   const doubleQuoteStringRegExp = /"(?:[^"\\]|\\.)*"/y;
   const verbatimStringRegExp = /@"(?:[^"]|"")*"/ys;
   const backQuoteStringRegExp = /`(?:[^`\\]|\\.)*`/ys;
-  const regExpRegExp = /\/(?:[^\/\\]|\\.)+\/[a-z]*/ys;
+  const regExpRegExp = /\/(?:[^\/\\]|\\.)+\/[a-z]*/y;
   const tagRegExp = /<[a-z]|<!--.*?-->|/ysi;
   const razorCommentRegExp = /@\*.*?\*@/ys;
 
@@ -95,6 +95,11 @@ function codeLexer( text, language, razorLexer = null ) {
       const string = exec( backQuoteStringRegExp );
       if ( string != null )
         return { token: Token.String, delimiter: '`', value: stripSlashes( string[ 0 ] ), line };
+    }
+
+    if ( language == Language.JavaScript && text[ pos ] == '<' && text[ pos + 1 ] == '/' ) {
+      pos += 2;
+      return { token: Token.Operator, value: '</', line };
     }
 
     if ( language == Language.PHP ) {
