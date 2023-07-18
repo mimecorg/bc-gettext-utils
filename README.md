@@ -1,6 +1,6 @@
 # Bulletcode gettext utilities
 
-`bc-gettext-utils` is a toolset for Node.js which helps creating and updating translations in a format compatible with gettext `.po` and `.mo` files. It extracts translatable strings from JavaScript and .NET source files and merges extracted translations with existing ones.
+`bc-gettext-utils` is a toolset for Node.js which helps creating and updating translations in a format compatible with gettext `.po` and `.mo` files. It extracts translatable strings from JavaScript, .NET and PHP source files and merges extracted translations with existing ones.
 
 In order to load and save translations in `.po` and `.mo` formats, use the [gettext-parser](https://github.com/smhg/gettext-parser) library.
 
@@ -26,6 +26,7 @@ builder.add( file, extractors.vue( text, [options] ) );
 builder.add( file, extractors.cs( text, [options] ) );
 builder.add( file, extractors.cshtml( text, [options] ) );
 builder.add( file, extractors.xaml( text, [options] ) );
+builder.add( file, extractors.php( text, [options] ) );
 
 const translations = builder.translations;
 const count = builder.count;
@@ -44,6 +45,7 @@ Available extractors:
  - `extractors.cs` - C# files
  - `extractors.cshtml` - Razor pages and MVC views
  - `extractors.xaml` - XAML files
+ - `extractors.php` - PHP files
 
 The object returned by `builder.translations` follows the format used by [gettext-parser](https://github.com/smhg/gettext-parser#translations), e.g.:
 
