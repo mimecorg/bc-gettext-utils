@@ -90,6 +90,20 @@ describe( 'end-to-end', () => {
     expect( result ).to.equalLineByLine( expectedOutput );
   } );
 
+  it( 'extractors.php', async () => {
+    const input = await readFile( path.join( __dirname, 'fixtures/template.php' ), 'utf-8' );
+    const expectedOutput = await readFile( path.join( __dirname, 'fixtures/template.po' ), 'utf-8' );
+
+    const builder = translationBuilder();
+    builder.add( 'template.php', extractors.php( input ) );
+
+    const translations = normalizePlurals( builder.translations, 3 );
+
+    const result = compile( translations );
+
+    expect( result ).to.equalLineByLine( expectedOutput );
+  } );
+
   it( 'multiple sources', async () => {
     const jsInput = await readFile( path.join( __dirname, 'fixtures/script.js' ), 'utf-8' );
     const vueInput = await readFile( path.join( __dirname, 'fixtures/component.vue' ), 'utf-8' );

@@ -19,6 +19,7 @@ const Token = {
 const Language = {
   CSharp: 'C#',
   JavaScript: 'JavaScript',
+  PHP: 'PHP',
 };
 
 module.exports = {

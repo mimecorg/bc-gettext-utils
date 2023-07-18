@@ -8,6 +8,7 @@ function codeExtractor( lexer, { insideCode = true, extractAttributes = false } 
     particularPluralString = '_pn',
     displayAttribute = 'Display',
     errorMessageProperty = 'ErrorMessage',
+    reverseContext = false,
   } = options;
 
   function next() {
@@ -24,28 +25,31 @@ function codeExtractor( lexer, { insideCode = true, extractAttributes = false } 
         insideCode = false;
 
       if ( insideCode && token.token == Token.Identifier ) {
-        let args;
-        switch ( token.value ) {
-          case string:
-            args = extractArguments( 1 );
+        if ( matches( string, token.value ) ) {
+          const args = extractArguments( 1 );
+          if ( args != null )
+            return { line: token.line, msgid: args[ 0 ] };
+        } else if ( matches( particularString, token.value ) ) {
+          const args = extractArguments( 2 );
+          if ( args != null ) {
+            if ( reverseContext )
+              return { line: token.line, msgctxt: args[ 1 ], msgid: args[ 0 ] };
+            return { line: token.line, msgctxt: args[ 0 ], msgid: args[ 1 ] };
+          }
+        } else if ( matches( pluralString, token.value ) ) {
+          const args = extractArguments( 2 );
+          if ( args != null )
+            return { line: token.line, msgid: args[ 0 ], msgid_plural: args[ 1 ] };
+        } else if ( matches( particularPluralString, token.value ) ) {
+          if ( reverseContext ) {
+            const args = extractArgumentsReverseContext();
             if ( args != null )
-              return { line: token.line, msgid: args[ 0 ] };
-            break;
-          case particularString:
-            args = extractArguments( 2 );
-            if ( args != null )
-              return { line: token.line, msgctxt: args[ 0 ], msgid: args[ 1 ] };
-            break;
-          case pluralString:
-            args = extractArguments( 2 );
-            if ( args != null )
-              return { line: token.line, msgid: args[ 0 ], msgid_plural: args[ 1 ] };
-            break;
-          case particularPluralString:
-            args = extractArguments( 3 );
+              return { line: token.line, msgctxt: args[ 2 ], msgid: args[ 0 ], msgid_plural: args[ 1 ] };
+          } else {
+            const args = extractArguments( 3 );
             if ( args != null )
               return { line: token.line, msgctxt: args[ 0 ], msgid: args[ 1 ], msgid_plural: args[ 2 ] };
-            break;
+          }
         }
       }
 
@@ -102,6 +106,54 @@ function codeExtractor( lexer, { insideCode = true, extractAttributes = false } 
     return args;
   }
 
+  function extractArgumentsReverseContext() {
+    const args = extractArguments( 2 );
+
+    if ( args == null )
+      return null;
+
+    let token = lexer.peek();
+
+    if ( token.token != Token.Operator || token.value != ',' )
+      return null;
+
+    lexer.skip();
+
+    while ( true ) {
+      token = lexer.peek();
+      if ( token.token == Token.CodeEnd || token.token == Token.EOF || token.token == Token.Operator && token.value == ')' )
+        return null;
+
+      if ( token.token == Token.Operator && token.value == ',' )
+        break;
+
+      lexer.skip();
+    }
+
+    lexer.skip();
+
+    let arg = '';
+
+    while ( true ) {
+      token = lexer.peek();
+      if ( token.token != Token.String )
+        return null;
+
+      arg += token.value;
+      lexer.skip();
+
+      token = lexer.peek();
+      if ( token.token != Token.Operator || token.value != '+' )
+        break;
+
+      lexer.skip();
+    }
+
+    args.push( arg );
+
+    return args;
+  }
+
   function extractAttributeProperties() {
     const properties = {};
 
@@ -135,6 +187,12 @@ function codeExtractor( lexer, { insideCode = true, extractAttributes = false } 
     }
 
     return properties;
+  }
+
+  function matches( names, value ) {
+    if ( Array.isArray( names ) )
+      return names.includes( value );
+    return names == value;
   }
 
   return {

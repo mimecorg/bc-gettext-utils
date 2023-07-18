@@ -2,10 +2,11 @@ const { expect } = require( 'chai' );
 
 const codeExtractor = require( '../../src/code-extractor' );
 const codeLexer = require( '../../src/code-lexer' );
-const { Language } = require( '../../src/consts' );
+const phpLexer = require( '../../src/php-lexer' );
 const razorLexer = require( '../../src/razor-lexer' );
 const vueCodeLexer = require('../../src/vue-code-lexer');
 const vueLexer = require('../../src/vue-lexer');
+const { Language } = require( '../../src/consts' );
 
 describe( 'codeExtractor', () => {
   it( '_()', () => {
@@ -67,6 +68,15 @@ describe( 'codeExtractor', () => {
 
   it( 'concatenation', () => {
     const lexer = codeLexer( '_( "hello, "\n + "world"\n + "!" );', Language.JavaScript );
+    const extractor = codeExtractor( lexer );
+
+    const result = extractor.next();
+
+    expect( result.msgid ).to.equal( 'hello, world!' );
+  } );
+
+  it( 'PHP concatenation', () => {
+    const lexer = codeLexer( '_( "hello, "\n . "world"\n + "!" );', Language.PHP );
     const extractor = codeExtractor( lexer );
 
     const result = extractor.next();
@@ -179,6 +189,25 @@ describe( 'codeExtractor', () => {
     expect( t3 ).to.be.null;
   } );
 
+  it( 'with phpLexer', () => {
+    const lexer = phpLexer( '<div>\n<p>_( "HTML" );</p>\n<p><?= _( "hello" ) ?></p>\n</div>\n<?php\n_( "world" );\n?>', codeLexer );
+    const extractor = codeExtractor( lexer, { insideCode: false } );
+
+    const t1 = extractor.next();
+
+    expect( t1.msgid ).to.equal( 'hello' );
+    expect( t1.line ).to.equal( 3 );
+
+    const t2 = extractor.next();
+
+    expect( t2.msgid ).to.equal( 'world' );
+    expect( t2.line ).to.equal( 6 );
+
+    const t3 = extractor.next();
+
+    expect( t3 ).to.be.null;
+  } );
+
   it( 'with custom options', () => {
     const lexer = codeLexer( 'Text( "hello" );\nPlural( "world", "worlds" );\nContext( "ctx", "test" );PluralContext( "ctx2", "a dog", "{0} dogs" )', Language.JavaScript );
 
@@ -212,5 +241,42 @@ describe( 'codeExtractor', () => {
     const t5 = extractor.next();
 
     expect( t5 ).to.be.null;
+  } );
+
+  it( 'with multiple function names', () => {
+    const lexer = codeLexer( '__( "hello" ); _e( "world" );', Language.JavaScript );
+
+    const extractor = codeExtractor( lexer, {}, {
+      string: [ '__', '_e' ],
+    } );
+
+    const t1 = extractor.next();
+
+    expect( t1.msgid ).to.equal( 'hello' );
+
+    const t2 = extractor.next();
+
+    expect( t2.msgid ).to.equal( 'world' );
+  } );
+
+  it( 'with reversed context argument', () => {
+    const lexer = codeLexer( '_x( "hello", "ctx" ); _nx( "a dog", "%d dogs", $n, "ctx2" );', Language.PHP );
+
+    const extractor = codeExtractor( lexer, {}, {
+      particularString: '_x',
+      particularPluralString: '_nx',
+      reverseContext: true,
+    } );
+
+    const t1 = extractor.next();
+
+    expect( t1.msgid ).to.equal( 'hello' );
+    expect( t1.msgctxt ).to.equal( 'ctx' );
+
+    const t2 = extractor.next();
+
+    expect( t2.msgid ).to.equal( 'a dog' );
+    expect( t2.msgid_plural ).to.equal( '%d dogs' );
+    expect( t2.msgctxt ).to.equal( 'ctx2' );
   } );
 } );

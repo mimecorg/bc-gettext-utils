@@ -97,6 +97,26 @@ function codeLexer( text, language, razorLexer = null ) {
         return { token: Token.String, delimiter: '`', value: stripSlashes( string[ 0 ] ), line };
     }
 
+    if ( language == Language.PHP ) {
+      if ( text[ pos ] == '?' && text[ pos + 1 ] == '>' ) {
+        pos += 2;
+        return { token: Token.CodeEnd };
+      }
+
+      if ( text[ pos ] == '.' ) {
+        pos++;
+        return { token: Token.Operator, value: '+', line };
+      }
+    }
+
+    if ( ( language == Language.JavaScript || language == Language.PHP ) && text[ pos ] == '$' ) {
+      pos++;
+      const id = exec( idRegExp );
+      if ( id != null )
+        return { token: Token.Identifier, value: '$' + id[ 0 ], line };
+      return { token: Token.Operator, value: '$', line };
+    }
+
     if ( language == Language.CSharp && razorLexer != null ) {
       if ( text[ pos ] == '<' || text[ pos ] == '@' && text[ pos + 1 ] == ':' ) {
         const last = getLastToken();

@@ -95,6 +95,8 @@ builder.add( file, extractors.js( text, file, {
 } ) );
 ```
 
+Multiple names can be specified by passing an array.
+
 Note that string literals must be used for the extraction to work. In JavaScript, `'single quoted'` and `"double quoted"` strings are supported. In C#, `"regular"` and `@"verbatim"` string literals can be used.
 
 Concatenation of multiple string literals using the `+` operator is also supported:
@@ -165,6 +167,22 @@ builder.add( file, extractors.xaml( text, file, {
   textAttribute: 'Text',
   pluralTextAttribute: 'PluralText',
   contextAttribute: 'Context',
+} ) );
+```
+
+### PHP
+
+In PHP files, translatable strings are extracted from code blocks starting with `<?php` or `<?=`.
+
+The order of arguments can be changed to support WordPress internationalization functions, by setting the `reverseContext` option to `true`:
+
+```js
+builder.add( file, extractors.php( text, file, {
+  string: [ '__', '_e', 'esc_html__', 'esc_html_e', 'esc_attr__', 'esc_attr_e' ],
+  particularString: [ '_x', '_ex', 'esc_html_x', 'esc_attr_x' ],
+  pluralString: '_n',
+  particularPluralString: '_nx',
+  reverseContext: true,
 } ) );
 ```
 

@@ -1,6 +1,7 @@
 const translationBuilder = require( './translation-builder' );
 const codeExtractor = require( './code-extractor' );
 const codeLexer = require( './code-lexer' );
+const phpLexer = require('./php-lexer');
 const razorLexer = require( './razor-lexer' );
 const vueCodeLexer = require( './vue-code-lexer' );
 const vueLexer = require( './vue-lexer' );
@@ -26,7 +27,10 @@ const extractors = {
   },
   xaml( text, options = {} ) {
    return xamlExtractor( xamlLexer( text ), options );
-  }
+  },
+  php( text, options = {} ) {
+   return codeExtractor( phpLexer( text, codeLexer ), { insideCode: false }, options );
+  },
 };
 
 module.exports = { translationBuilder, extractors, mergeTranslations, normalizePlurals, compareRefence };
