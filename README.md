@@ -17,11 +17,12 @@ npm install bc-gettext-utils
 Use the `extractors` collection of functions to extract translatable strings from source files, e.g.:
 
 ```js
-const { translationBuilder, extractors } = require( 'bc-gettext-utils' );
+import { translationBuilder, extractors } from 'bc-gettext-utils';
 
 const builder = translationBuilder();
 
 builder.add( file, extractors.js( text, [options] ) );
+builder.add( file, extractors.ts( text, [options] ) );
 builder.add( file, extractors.vue( text, [options] ) );
 builder.add( file, extractors.cs( text, [options] ) );
 builder.add( file, extractors.cshtml( text, [options] ) );
@@ -41,6 +42,7 @@ Where:
 Available extractors:
 
  - `extractors.js` - JavaScript files
+ - `extractors.ts` - TypeScript files
  - `extractors.vue` - Vue single-file components
  - `extractors.cs` - C# files
  - `extractors.cshtml` - Razor pages and MVC views
@@ -77,7 +79,7 @@ The number of extracted unique messages is available as `builder.count`.
 
 ### JavaScript and C#
 
-The following functions or methods are recognized in JavaScript and C# code:
+The following functions or methods are recognized in JavaScript, TypeScript and C# code:
 
 ```js
 _( "text" );
@@ -99,7 +101,7 @@ builder.add( file, extractors.js( text, file, {
 
 Multiple names can be specified by passing an array.
 
-Note that string literals must be used for the extraction to work. In JavaScript, `'single quoted'` and `"double quoted"` strings are supported. In C#, `"regular"` and `@"verbatim"` string literals can be used.
+Note that string literals must be used for the extraction to work. In JavaScript and TypeScript, `'single quoted'` and `"double quoted"` strings are supported. In C#, `"regular"` and `@"verbatim"` string literals can be used.
 
 Concatenation of multiple string literals using the `+` operator is also supported:
 
@@ -107,6 +109,8 @@ Concatenation of multiple string literals using the `+` operator is also support
 _( "this is a long text\n"
  + "and this is another line" );
 ```
+
+In JavaScript and TypeScript, JSX expressions are supported.
 
 In C#, translatable strings are also extracted from the `Display` attribute and the `ErrorMessage` property of validation attributes, for example:
 
@@ -193,7 +197,7 @@ builder.add( file, extractors.php( text, file, {
 The following function can be used to merge existing, already translated messages, with newly extracted translations:
 
 ```js
-const { mergeTranslations } = require( 'bc-gettext-utils' );
+import { mergeTranslations } from 'bc-gettext-utils';
 
 const { translations, added, updated, deleted } = mergeTranslations( existingTranslations, newTranslations );
 ```
@@ -213,7 +217,7 @@ The existing translations, translator comments and flags are preserved.
 The following function can be used to normalize plurals in merged translations:
 
 ```js
-const { normalizePlurals } = require( 'bc-gettext-utils' );
+import { normalizePlurals } from 'bc-gettext-utils';
 
 const normalizedTranslations = normalizePlurals( translations, 2 );
 ```
@@ -225,8 +229,8 @@ It ensures that the plural messages contain the specified number of translated s
 Use the `compareReference` function to sort translations by file path and line number. This can be used when creating a `.po` file using [gettext-parser](https://github.com/smhg/gettext-parser#compile-po-from-a-translation-object):
 
 ```js
-const { compareReference } = require( 'bc-gettext-utils' );
-const gettextParser = require( 'gettext-parser' );
+import { compareReference } from 'bc-gettext-utils';
+import gettextParser from 'gettext-parser';
 
 const data = { headers, translations };
 const output = gettextParser.po.compile( data, { sort: compareReference } );
