@@ -1,5 +1,6 @@
 import { codeExtractor } from './code-extractor.js';
 import { codeLexer } from './code-lexer.js';
+import { oxcExtractor } from './oxc-extractor.js';
 import { phpLexer } from './php-lexer.js';
 import { razorLexer } from './razor-lexer.js';
 import { vueCodeLexer } from './vue-code-lexer.js';
@@ -14,7 +15,11 @@ export { normalizePlurals } from './normalize-plurals.js';
 export { compareReference } from './compare-reference.js';
 
 function js( text, options = {} ) {
-  return codeExtractor( codeLexer( text, Language.JavaScript ), {}, options );
+  return oxcExtractor( text, Language.JavaScript, options );
+}
+
+function ts( text, options = {} ) {
+  return oxcExtractor( text, Language.TypeScript, options );
 }
 
 function cs( text, options = {} ) {
@@ -39,6 +44,7 @@ function php( text, options = {} ) {
 
 export const extractors = {
   js,
+  ts,
   cs,
   vue,
   cshtml,

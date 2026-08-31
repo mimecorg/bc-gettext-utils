@@ -27,6 +27,9 @@
     "url": "https://github.com/mimecorg/bc-gettext-utils/issues"
   },
   "homepage": "https://github.com/mimecorg/bc-gettext-utils",
+  "dependencies": {
+    "oxc-parser": "^0.147.0"
+  },
   "devDependencies": {
     "chai": "^6.2.2",
     "gettext-parser": "^9.1.1",
