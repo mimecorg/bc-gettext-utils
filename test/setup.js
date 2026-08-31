@@ -1,5 +1,5 @@
-const chai = require( 'chai' );
+import { use } from 'chai';
 
-const { equalLineByLine } = require( './helpers/assertions' );
+import { equalLineByLine } from './helpers/assertions.js';
 
-chai.use( equalLineByLine );
+use( equalLineByLine );

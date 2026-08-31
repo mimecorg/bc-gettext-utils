@@ -1,4 +1,4 @@
-function stubExtractor( translations ) {
+export function stubExtractor( translations ) {
   let index = 0;
 
   function next() {
@@ -11,5 +11,3 @@ function stubExtractor( translations ) {
     next,
   };
 }
-
-module.exports = stubExtractor;

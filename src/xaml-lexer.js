@@ -1,13 +1,14 @@
-const lookaheadLexer = require('./lookahead-lexer');
-const { Token } = require( './consts' );
+import { lookaheadLexer } from './lookahead-lexer.js';
+import { Token } from './consts.js';
 
-function xamlLexer( text ) {
+export function xamlLexer( text ) {
   let pos = 0;
   let line = 1;
 
   let nextLF = text.indexOf( '\n' );
 
   let insideTag = false;
+  let lastOpeningTag = null;
 
   let insideExtension = false;
   let inSingleQuotes = false;
@@ -226,5 +227,3 @@ function xamlLexer( text ) {
     skip,
   };
 }
-
-module.exports = xamlLexer;

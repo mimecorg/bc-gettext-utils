@@ -1,6 +1,6 @@
-const { Token } = require("./consts");
+import { Token } from './consts.js';
 
-function codeExtractor( lexer, { insideCode = true, extractAttributes = false } = {}, options = {} ) {
+export function codeExtractor( lexer, { insideCode = true, extractAttributes = false } = {}, options = {} ) {
   const {
     string = '_',
     particularString = '_p',
@@ -199,5 +199,3 @@ function codeExtractor( lexer, { insideCode = true, extractAttributes = false } 
     next,
   };
 }
-
-module.exports = codeExtractor;

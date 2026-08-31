@@ -1,7 +1,7 @@
-const { expect } = require( 'chai' );
+import { expect } from 'chai';
 
-const vueLexer = require( '../../src/vue-lexer' );
-const { Token } = require( '../../src/consts' );
+import { vueLexer } from '../../src/vue-lexer.js';
+import { Token } from '../../src/consts.js';
 
 describe( 'vueLexer', () => {
   describe( 'single tokens', () => {

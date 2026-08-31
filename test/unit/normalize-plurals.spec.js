@@ -1,6 +1,6 @@
-const { expect } = require( 'chai' );
+import { expect } from 'chai';
 
-const normalizePlurals = require( '../../src/normalize-plurals' );
+import { normalizePlurals } from '../../src/normalize-plurals.js';
 
 describe( 'normalizePlurals', () => {
   it( 'singular to plural', () => {

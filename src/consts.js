@@ -1,4 +1,4 @@
-const Token = {
+export const Token = {
   EOF: 'EOF',
   Identifier: 'Identifier',
   Number: 'Number',
@@ -16,13 +16,9 @@ const Token = {
   ExtensionEnd: 'ExtensionEnd',
 };
 
-const Language = {
+export const Language = {
   CSharp: 'C#',
   JavaScript: 'JavaScript',
   PHP: 'PHP',
-};
-
-module.exports = {
-  Token,
-  Language,
+  TypeScript: 'TypeScript',
 };

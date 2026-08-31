@@ -1,4 +1,4 @@
-function mergeTranslations( existingTranslations, newTranslations ) {
+export function mergeTranslations( existingTranslations, newTranslations ) {
   const translations = {};
 
   let added = 0;
@@ -44,5 +44,3 @@ function mergeTranslations( existingTranslations, newTranslations ) {
 
   return { translations, added, updated, deleted };
 }
-
-module.exports = mergeTranslations;

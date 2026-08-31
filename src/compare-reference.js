@@ -1,6 +1,6 @@
 const referenceRegExp = /(.*?):(\d+)/;
 
-function compareReference( left, right ) {
+export function compareReference( left, right ) {
   const matchLeft = referenceRegExp.exec( left.comments.reference );
   const matchRight = referenceRegExp.exec( right.comments.reference );
 
@@ -27,5 +27,3 @@ function compareReference( left, right ) {
 
   return 0;
 }
-
-module.exports = compareReference;

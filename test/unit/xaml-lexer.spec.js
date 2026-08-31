@@ -1,7 +1,7 @@
-const { expect } = require( 'chai' );
+import { expect } from 'chai';
 
-const xamlLexer = require( '../../src/xaml-lexer' );
-const { Token } = require( '../../src/consts' );
+import { xamlLexer } from '../../src/xaml-lexer.js';
+import { Token } from '../../src/consts.js';
 
 describe( 'xamlLexer', () => {
   describe( 'tags', () => {

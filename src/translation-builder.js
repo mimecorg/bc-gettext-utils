@@ -1,4 +1,4 @@
-function translationBuilder() {
+export function translationBuilder() {
   const translations = {};
 
   let count = 0;
@@ -65,5 +65,3 @@ function translationBuilder() {
     get count() { return count; },
   };
 }
-
-module.exports = translationBuilder;

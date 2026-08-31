@@ -1,6 +1,6 @@
-const { expect } = require( 'chai' );
+import { expect } from 'chai';
 
-const lookaheadLexer = require( '../../src/lookahead-lexer' );
+import { lookaheadLexer } from '../../src/lookahead-lexer.js';
 
 describe( 'lookaheadLexer', () => {
   let counter;

@@ -1,7 +1,7 @@
-const { expect } = require( 'chai' );
+import { expect } from 'chai';
 
-const xamlExtractor = require( '../../src/xaml-extractor' );
-const xamlLexer = require( '../../src/xaml-lexer' );
+import { xamlExtractor } from '../../src/xaml-extractor.js';
+import { xamlLexer } from '../../src/xaml-lexer.js';
 
 describe( 'xamlExtractor', () => {
   it( 'simple extension', () => {

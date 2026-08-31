@@ -1,7 +1,7 @@
-const lookaheadLexer = require( './lookahead-lexer' );
-const { Token, Language } = require( './consts' );
+import { lookaheadLexer } from './lookahead-lexer.js';
+import { Token, Language } from './consts.js';
 
-function razorLexer( text, codeLexer ) {
+export function razorLexer( text, codeLexer ) {
   let pos = 0;
   let line = 1;
 
@@ -267,5 +267,3 @@ function razorLexer( text, codeLexer ) {
     get line() { return line; },
   };
 }
-
-module.exports = razorLexer;

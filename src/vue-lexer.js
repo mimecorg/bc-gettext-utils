@@ -1,7 +1,7 @@
-const lookaheadLexer = require('./lookahead-lexer');
-const { Token } = require( './consts' );
+import { lookaheadLexer } from './lookahead-lexer.js';
+import { Token } from './consts.js';
 
-function vueLexer( text ) {
+export function vueLexer( text ) {
   let pos = 0;
   let line = 1;
 
@@ -151,5 +151,3 @@ function vueLexer( text ) {
     skip,
   };
 }
-
-module.exports = vueLexer;

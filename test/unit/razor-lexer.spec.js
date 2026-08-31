@@ -1,8 +1,8 @@
-const { expect } = require( 'chai' );
+import { expect } from 'chai';
 
-const razorLexer = require( '../../src/razor-lexer' );
-const codeLexer = require( '../../src/code-lexer' );
-const { Token } = require( '../../src/consts' );
+import { razorLexer } from '../../src/razor-lexer.js';
+import { codeLexer } from '../../src/code-lexer.js';
+import { Token } from '../../src/consts.js';
 
 describe( 'razorLexer', () => {
   describe( 'single tokens', () => {

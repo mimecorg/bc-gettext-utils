@@ -1,4 +1,4 @@
-function equalLineByLine( chai, utils ) {
+export function equalLineByLine( chai, utils ) {
   utils.addMethod( chai.Assertion.prototype, 'equalLineByLine', function ( value ) {
     new chai.Assertion( this._obj ).to.be.a( 'string' );
 
@@ -11,7 +11,3 @@ function equalLineByLine( chai, utils ) {
       new chai.Assertion( expected[ i ], `Unexpected content in line ${i+1}` ).to.equal( actual[ i ] );
   } );
 }
-
-module.exports = {
-  equalLineByLine,
-};

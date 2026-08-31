@@ -1,7 +1,7 @@
-const lookaheadLexer = require('./lookahead-lexer');
-const { Token, Language } = require( './consts' );
+import { lookaheadLexer } from './lookahead-lexer.js';
+import { Token, Language } from './consts.js';
 
-function vueCodeLexer( text, vueLexer, codeLexer ) {
+export function vueCodeLexer( text, vueLexer, codeLexer ) {
   const lexer = vueLexer( text );
 
   let childLexer = null;
@@ -79,5 +79,3 @@ function vueCodeLexer( text, vueLexer, codeLexer ) {
     skip,
   };
 }
-
-module.exports = vueCodeLexer;

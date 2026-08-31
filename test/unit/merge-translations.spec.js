@@ -1,6 +1,6 @@
-const { expect } = require( 'chai' );
+import { expect } from 'chai';
 
-const mergeTranslations = require( '../../src/merge-translations' );
+import { mergeTranslations } from '../../src/merge-translations.js';
 
 describe( 'mergeTranslations', () => {
   it( 'add', () => {

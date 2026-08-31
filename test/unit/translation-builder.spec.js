@@ -1,8 +1,8 @@
-const { expect } = require( 'chai' );
+import { expect } from 'chai';
 
-const translationBuilder = require( '../../src/translation-builder' );
+import { translationBuilder } from '../../src/translation-builder.js';
 
-const stubExtractor = require( '../helpers/stub-extractor' );
+import { stubExtractor } from '../helpers/stub-extractor.js';
 
 describe( 'translationBuilder', () => {
   it( 'add simple message', () => {

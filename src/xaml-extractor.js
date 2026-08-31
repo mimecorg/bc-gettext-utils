@@ -1,6 +1,6 @@
-const { Token } = require("./consts");
+import { Token } from './consts.js';
 
-function xamlExtractor( lexer, options = {} ) {
+export function xamlExtractor( lexer, options = {} ) {
   const {
     extensions = [ 'i18n:Translate', 'i18n:Format', 'i18n:MultiFormat' ],
     textAttribute = 'Text',
@@ -181,5 +181,3 @@ function xamlExtractor( lexer, options = {} ) {
     next,
   };
 }
-
-module.exports = xamlExtractor;

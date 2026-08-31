@@ -1,12 +1,12 @@
-const { expect } = require( 'chai' );
+import { expect } from 'chai';
 
-const codeExtractor = require( '../../src/code-extractor' );
-const codeLexer = require( '../../src/code-lexer' );
-const phpLexer = require( '../../src/php-lexer' );
-const razorLexer = require( '../../src/razor-lexer' );
-const vueCodeLexer = require('../../src/vue-code-lexer');
-const vueLexer = require('../../src/vue-lexer');
-const { Language } = require( '../../src/consts' );
+import { codeExtractor } from '../../src/code-extractor.js';
+import { codeLexer } from '../../src/code-lexer.js';
+import { phpLexer } from '../../src/php-lexer.js';
+import { razorLexer } from '../../src/razor-lexer.js';
+import { vueCodeLexer } from '../../src/vue-code-lexer.js';
+import { vueLexer } from '../../src/vue-lexer.js';
+import { Language } from '../../src/consts.js';
 
 describe( 'codeExtractor', () => {
   it( '_()', () => {

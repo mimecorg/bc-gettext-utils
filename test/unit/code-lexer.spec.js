@@ -1,7 +1,7 @@
-const { expect } = require( 'chai' );
+import { expect } from 'chai';
 
-const codeLexer = require( '../../src/code-lexer' );
-const { Token, Language } = require( '../../src/consts' );
+import { codeLexer } from '../../src/code-lexer.js';
+import { Token, Language } from '../../src/consts.js';
 
 describe( 'codeLexer', () => {
   describe( 'single tokens - C#', () => {

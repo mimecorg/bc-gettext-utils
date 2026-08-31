@@ -1,10 +1,13 @@
-const path = require( 'path' );
-const { readFile } = require( 'fs/promises' );
+import { join } from 'path';
+import { readFile } from 'fs/promises';
+import { fileURLToPath } from 'url';
 
-const { expect } = require( 'chai' );
-const gettextParser = require( 'gettext-parser' );
+import { expect } from 'chai';
+import { po } from 'gettext-parser';
 
-const { translationBuilder, extractors, mergeTranslations, normalizePlurals, compareRefence } = require( '../../src' );
+import { translationBuilder, extractors, mergeTranslations, normalizePlurals, compareReference } from '../../src/index.js';
+
+const __dirname = fileURLToPath( new URL( '.', import.meta.url ) );
 
 describe( 'end-to-end', () => {
   const headers = {
@@ -17,12 +20,12 @@ describe( 'end-to-end', () => {
   };
 
   function compile( translations ) {
-    return gettextParser.po.compile( { headers, translations }, { sort: compareRefence } ).toString() + '\n';
+    return po.compile( { headers, translations }, { sort: compareReference } ).toString();
   }
 
   it( 'extractors.js', async () => {
-    const input = await readFile( path.join( __dirname, 'fixtures/script.js' ), 'utf-8' );
-    const expectedOutput = await readFile( path.join( __dirname, 'fixtures/script.po' ), 'utf-8' );
+    const input = await readFile( join( __dirname, 'fixtures/script.js' ), 'utf-8' );
+    const expectedOutput = await readFile( join( __dirname, 'fixtures/script.po' ), 'utf-8' );
 
     const builder = translationBuilder();
     builder.add( 'script.js', extractors.js( input ) );
@@ -35,8 +38,8 @@ describe( 'end-to-end', () => {
   } );
 
   it( 'extractors.vue', async () => {
-    const input = await readFile( path.join( __dirname, 'fixtures/component.vue' ), 'utf-8' );
-    const expectedOutput = await readFile( path.join( __dirname, 'fixtures/component.po' ), 'utf-8' );
+    const input = await readFile( join( __dirname, 'fixtures/component.vue' ), 'utf-8' );
+    const expectedOutput = await readFile( join( __dirname, 'fixtures/component.po' ), 'utf-8' );
 
     const builder = translationBuilder();
     builder.add( 'component.vue', extractors.vue( input ) );
@@ -49,8 +52,8 @@ describe( 'end-to-end', () => {
   } );
 
   it( 'extractors.cs', async () => {
-    const input = await readFile( path.join( __dirname, 'fixtures/testclass.cs' ), 'utf-8' );
-    const expectedOutput = await readFile( path.join( __dirname, 'fixtures/testclass.po' ), 'utf-8' );
+    const input = await readFile( join( __dirname, 'fixtures/testclass.cs' ), 'utf-8' );
+    const expectedOutput = await readFile( join( __dirname, 'fixtures/testclass.po' ), 'utf-8' );
 
     const builder = translationBuilder();
     builder.add( 'testclass.cs', extractors.cs( input ) );
@@ -63,8 +66,8 @@ describe( 'end-to-end', () => {
   } );
 
   it( 'extractors.cshtml', async () => {
-    const input = await readFile( path.join( __dirname, 'fixtures/view.cshtml' ), 'utf-8' );
-    const expectedOutput = await readFile( path.join( __dirname, 'fixtures/view.po' ), 'utf-8' );
+    const input = await readFile( join( __dirname, 'fixtures/view.cshtml' ), 'utf-8' );
+    const expectedOutput = await readFile( join( __dirname, 'fixtures/view.po' ), 'utf-8' );
 
     const builder = translationBuilder();
     builder.add( 'view.cshtml', extractors.cshtml( input ) );
@@ -77,8 +80,8 @@ describe( 'end-to-end', () => {
   } );
 
   it( 'extractors.xaml', async () => {
-    const input = await readFile( path.join( __dirname, 'fixtures/window.xaml' ), 'utf-8' );
-    const expectedOutput = await readFile( path.join( __dirname, 'fixtures/window.po' ), 'utf-8' );
+    const input = await readFile( join( __dirname, 'fixtures/window.xaml' ), 'utf-8' );
+    const expectedOutput = await readFile( join( __dirname, 'fixtures/window.po' ), 'utf-8' );
 
     const builder = translationBuilder();
     builder.add( 'window.xaml', extractors.xaml( input ) );
@@ -91,8 +94,8 @@ describe( 'end-to-end', () => {
   } );
 
   it( 'extractors.php', async () => {
-    const input = await readFile( path.join( __dirname, 'fixtures/template.php' ), 'utf-8' );
-    const expectedOutput = await readFile( path.join( __dirname, 'fixtures/template.po' ), 'utf-8' );
+    const input = await readFile( join( __dirname, 'fixtures/template.php' ), 'utf-8' );
+    const expectedOutput = await readFile( join( __dirname, 'fixtures/template.po' ), 'utf-8' );
 
     const builder = translationBuilder();
     builder.add( 'template.php', extractors.php( input ) );
@@ -105,13 +108,13 @@ describe( 'end-to-end', () => {
   } );
 
   it( 'multiple sources', async () => {
-    const jsInput = await readFile( path.join( __dirname, 'fixtures/script.js' ), 'utf-8' );
-    const vueInput = await readFile( path.join( __dirname, 'fixtures/component.vue' ), 'utf-8' );
-    const csInput = await readFile( path.join( __dirname, 'fixtures/testclass.cs' ), 'utf-8' );
-    const cshtmlInput = await readFile( path.join( __dirname, 'fixtures/view.cshtml' ), 'utf-8' );
-    const xamlInput = await readFile( path.join( __dirname, 'fixtures/window.xaml' ), 'utf-8' );
+    const jsInput = await readFile( join( __dirname, 'fixtures/script.js' ), 'utf-8' );
+    const vueInput = await readFile( join( __dirname, 'fixtures/component.vue' ), 'utf-8' );
+    const csInput = await readFile( join( __dirname, 'fixtures/testclass.cs' ), 'utf-8' );
+    const cshtmlInput = await readFile( join( __dirname, 'fixtures/view.cshtml' ), 'utf-8' );
+    const xamlInput = await readFile( join( __dirname, 'fixtures/window.xaml' ), 'utf-8' );
 
-    const expectedOutput = await readFile( path.join( __dirname, 'fixtures/all.po' ), 'utf-8' );
+    const expectedOutput = await readFile( join( __dirname, 'fixtures/all.po' ), 'utf-8' );
 
     const builder = translationBuilder();
     builder.add( 'script.js', extractors.js( jsInput ) );
@@ -128,16 +131,16 @@ describe( 'end-to-end', () => {
   } );
 
   it( 'merge existing translations', async () => {
-    const jsInput = await readFile( path.join( __dirname, 'fixtures/script.js' ), 'utf-8' );
-    const vueInput = await readFile( path.join( __dirname, 'fixtures/component.vue' ), 'utf-8' );
-    const csInput = await readFile( path.join( __dirname, 'fixtures/testclass.cs' ), 'utf-8' );
-    const cshtmlInput = await readFile( path.join( __dirname, 'fixtures/view.cshtml' ), 'utf-8' );
-    const xamlInput = await readFile( path.join( __dirname, 'fixtures/window.xaml' ), 'utf-8' );
+    const jsInput = await readFile( join( __dirname, 'fixtures/script.js' ), 'utf-8' );
+    const vueInput = await readFile( join( __dirname, 'fixtures/component.vue' ), 'utf-8' );
+    const csInput = await readFile( join( __dirname, 'fixtures/testclass.cs' ), 'utf-8' );
+    const cshtmlInput = await readFile( join( __dirname, 'fixtures/view.cshtml' ), 'utf-8' );
+    const xamlInput = await readFile( join( __dirname, 'fixtures/window.xaml' ), 'utf-8' );
 
-    const existingInput = await readFile( path.join( __dirname, 'fixtures/all-existing.po' ), 'utf-8' );
-    const existing = gettextParser.po.parse( existingInput );
+    const existingInput = await readFile( join( __dirname, 'fixtures/all-existing.po' ), 'utf-8' );
+    const existing = po.parse( existingInput );
 
-    const expectedOutput = await readFile( path.join( __dirname, 'fixtures/all-merged.po' ), 'utf-8' );
+    const expectedOutput = await readFile( join( __dirname, 'fixtures/all-merged.po' ), 'utf-8' );
 
     const builder = translationBuilder();
     builder.add( 'script.js', extractors.js( jsInput ) );
@@ -154,7 +157,7 @@ describe( 'end-to-end', () => {
 
     const normalizedTranslations = normalizePlurals( translations, 3 );
 
-    const result = gettextParser.po.compile( { headers: existing.headers, translations: normalizedTranslations }, { sort: compareRefence } ).toString() + '\n';
+    const result = po.compile( { headers: existing.headers, translations: normalizedTranslations }, { sort: compareReference } ).toString();
 
     expect( result ).to.equalLineByLine( expectedOutput );
   } );

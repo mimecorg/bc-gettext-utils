@@ -1,8 +1,8 @@
-const { expect } = require( 'chai' );
+import { expect } from 'chai';
 
-const phpLexer = require( '../../src/php-lexer' );
-const codeLexer = require( '../../src/code-lexer' );
-const { Token } = require( '../../src/consts' );
+import { phpLexer } from '../../src/php-lexer.js';
+import { codeLexer } from '../../src/code-lexer.js';
+import { Token } from '../../src/consts.js';
 
 describe( 'phpLexer', () => {
   it( 'code block', () => {

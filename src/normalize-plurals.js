@@ -1,4 +1,4 @@
-function normalizePlurals( translations, nplurals = 2 ) {
+export function normalizePlurals( translations, nplurals = 2 ) {
   const normalizedTranslations = {};
 
   for ( const context in translations ) {
@@ -31,5 +31,3 @@ function normalizePlurals( translations, nplurals = 2 ) {
 
   return normalizedTranslations;
 }
-
-module.exports = normalizePlurals;

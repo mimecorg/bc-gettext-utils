@@ -1,9 +1,9 @@
-const { expect } = require( 'chai' );
+import { expect } from 'chai';
 
-const vueCodeLexer = require( '../../src/vue-code-lexer' );
-const codeLexer = require( '../../src/code-lexer' );
-const vueLexer = require( '../../src/vue-lexer' );
-const { Token } = require( '../../src/consts' );
+import { vueCodeLexer } from '../../src/vue-code-lexer.js';
+import { codeLexer } from '../../src/code-lexer.js';
+import { vueLexer } from '../../src/vue-lexer.js';
+import { Token } from '../../src/consts.js';
 
 describe( 'vueCodeLexer', () => {
   const data = [

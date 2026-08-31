@@ -1,29 +1,29 @@
-const { expect } = require( 'chai' );
+import { expect } from 'chai';
 
-const compareRefence = require( '../../src/compare-reference' );
+import { compareReference } from '../../src/compare-reference.js';
 
 describe( 'compareReference', () => {
   it( 'by path', () => {
-    const result1 = compareRefence( { comments: { reference: '../src/a.js:32' } }, { comments: { reference: '../src/b.js:15' } } );
+    const result1 = compareReference( { comments: { reference: '../src/a.js:32' } }, { comments: { reference: '../src/b.js:15' } } );
     expect( result1 ).to.be.lessThan( 0 );
 
-    const result2 = compareRefence( { comments: { reference: '../src/zzz.js:32' } }, { comments: { reference: '../src/zza.js:15' } } );
+    const result2 = compareReference( { comments: { reference: '../src/zzz.js:32' } }, { comments: { reference: '../src/zza.js:15' } } );
     expect( result2 ).to.be.greaterThan( 0 );
   } );
 
   it( 'by line number', () => {
-    const result1 = compareRefence( { comments: { reference: '../src/a.js:32' } }, { comments: { reference: '../src/a.js:150' } } );
+    const result1 = compareReference( { comments: { reference: '../src/a.js:32' } }, { comments: { reference: '../src/a.js:150' } } );
     expect( result1 ).to.be.lessThan( 0 );
 
-    const result2 = compareRefence( { comments: { reference: '../src/zzz.js:32' } }, { comments: { reference: '../src/zzz.js:3' } } );
+    const result2 = compareReference( { comments: { reference: '../src/zzz.js:32' } }, { comments: { reference: '../src/zzz.js:3' } } );
     expect( result2 ).to.be.greaterThan( 0 );
   } );
 
   it( 'by message', () => {
-    const result1 = compareRefence( { msgid: 'alpha', comments: { reference: '../src/a.js:32' } }, { msgid: 'beta', comments: { reference: '../src/a.js:32' } } );
+    const result1 = compareReference( { msgid: 'alpha', comments: { reference: '../src/a.js:32' } }, { msgid: 'beta', comments: { reference: '../src/a.js:32' } } );
     expect( result1 ).to.be.lessThan( 0 );
 
-    const result2 = compareRefence( { msgid: 'beta', comments: { reference: '../src/a.js:32' } }, { msgid: 'alpha', comments: { reference: '../src/a.js:32' } } );
+    const result2 = compareReference( { msgid: 'beta', comments: { reference: '../src/a.js:32' } }, { msgid: 'alpha', comments: { reference: '../src/a.js:32' } } );
     expect( result2 ).to.be.greaterThan( 0 );
   } );
 } );

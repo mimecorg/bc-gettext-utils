@@ -1,4 +1,4 @@
-function lookaheadLexer( getToken ) {
+export function lookaheadLexer( getToken ) {
   const tokens = [];
 
   let lastToken = null;
@@ -55,5 +55,3 @@ function lookaheadLexer( getToken ) {
     getLastToken,
   };
 }
-
-module.exports = lookaheadLexer;
